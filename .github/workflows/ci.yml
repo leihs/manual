@@ -1,3 +1,5 @@
+# TODO: build (test) on each push, deploy on push to master
+
 name: ci
 on:
   push:
@@ -5,14 +7,14 @@ on:
       - master
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-18.04
-  #   steps:
-  #     - uses: actions/checkout@v2 # needed to use the local action
-  #     - name: build
-  #       uses: ./.github/actions/mkdocs # a local action
-  #       with:
-  #         command: 'mkdocs build'
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2 # needed to use the local action
+      - name: build
+        uses: ./.github/actions/mkdocs # a local action
+        with:
+          command: "mkdocs build"
 
   deploy:
     runs-on: ubuntu-18.04
@@ -21,4 +23,4 @@ jobs:
       - name: deploy
         uses: ./.github/actions/mkdocs # a local action
         with:
-          command: 'mkdocs gh-deploy --force'
+          command: "mkdocs gh-deploy --force"

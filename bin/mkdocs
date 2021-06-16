@@ -3,4 +3,11 @@
 # runs like the github action, but locally
 
 docker build -t squidfunk/mkdocs-material .
+
+# silence an annoying (and annoyinlgy wrong) warning:
+docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material "sed -i'' \"s/if key_name == 'dev_addr' and host in \['0.0.0.0', '::'\]:/if false:/g\" /usr/local/lib/python3.9/site-packages/mkdocs/config/config_options.py"
+
 docker run --rm -it -p 8000:8000 -v ${PWD}:/docs squidfunk/mkdocs-material "$@"
+
+
+
